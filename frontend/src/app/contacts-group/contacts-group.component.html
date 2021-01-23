@@ -1,0 +1,32 @@
+<br><br><br>
+<div class="row">
+    <h3>Contact(s) du groupe</h3>
+  </div> <br>  
+  <table *ngIf="contacts; else loading" class="table table-hover table-responsive-md">
+      <thead class="header">
+      <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Email</th>
+        <th>Portable</th>
+        <th>Fixe</th>
+        <th>Adresse</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr class="contact-row" *ngFor="let c of contacts">
+          <th scope="row">{{c.id}}</th>
+          <td>{{c.firstname}}</td>
+          <td>{{c.lastname}}</td>
+          <td>{{c.email}}</td>
+          <td>{{c.phone.phonenumber}}</td>
+          <td>{{c.cellPhone.phonenumber}}</td>
+          <td>{{c.address.resume}}</td>      
+        </tr>
+      </tbody>
+    </table>
+    
+    <ng-template #loading>
+      <span>loading contacts...</span>
+    </ng-template>

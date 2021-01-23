@@ -1,0 +1,48 @@
+<br><br><br><br>
+<div class="row">
+  <h3>Liste des contacts</h3>
+</div> <br>
+<div class="row">
+  <div class="col-md-6">
+    <button class="btn btn-outline-primary mb-1 btn-sm"><a class="nav-link" routerLinkActive="active" routerLink="/createContact">Creer contact </a></button>
+  </div>
+</div> <br>
+<table *ngIf="contacts; else loading" class="table table-hover table-responsive-md">
+    <thead class="header">
+    <tr>
+      <th>Id</th>
+      <th>Nom</th>
+      <th>Prenom</th>
+      <th>Email</th>
+      <th>Portable</th>
+      <th>Fixe</th>
+      <th>Adresse</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr class="contact-row" *ngFor="let c of contacts">
+        <th scope="row">{{c.id}}</th>
+        <td>{{c.firstname}}</td>
+        <td>{{c.lastname}}</td>
+        <td>{{c.email}}</td>
+        <td>{{c.phone.phonenumber}}</td>
+        <td>{{c.cellPhone.phonenumber}}</td>
+        <td>{{c.address.resume}}</td>      
+        <td>         
+          <button class="btn btn-primary" (click)="updateContact(c)">Modifier</button>    
+          <button class="btn btn-danger" (click)="deleteContact(c)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <br>
+      <div class="text-center">
+        <jw-pagination [items]="contacts" [pageSize]="10" (changePage)="onChangePage($event)"> </jw-pagination>
+      </div>
+    </tfoot>
+  </table>
+  
+  <ng-template #loading>
+    <span>loading contacts...</span>
+  </ng-template>

@@ -1,0 +1,79 @@
+<br><br><br>
+<div class="container-fluid">
+	<div class="row">
+		<h1>Modification du contact</h1>
+	</div> <br>
+
+	<div class="row">
+		<div class="card " style="text-align:left;">
+			<div class="card-header bg-info text-white">
+				Informations du contact
+			</div>
+			<div class="card-body">
+
+        <table cellspacing="0">
+          <tr>
+          <td>
+            <form>
+              <mat-label>First name</mat-label>
+              <input name="firstname" [(ngModel)]="firstname">
+            </form>
+          </td>
+          <td><form >
+            <mat-label>Last name</mat-label>
+            <input name="lastname" [(ngModel)]="lastname">
+          </form></td>
+        </tr></table>
+        <br>
+
+				<form class="example-full-width">
+					<mat-label>Email</mat-label><br>
+					<input name="email" [(ngModel)]="email">
+        </form>
+        <br><br>
+        
+        <table cellspacing="0"><tr>
+          <td><form>
+            <mat-label>Portable</mat-label>
+            <input  name="phone"  [(ngModel)]="phone">
+          </form></td>
+          <td><form>
+            <mat-label>Fixe</mat-label>
+            <input name="cellphone" [(ngModel)]="cellphone">
+          </form></td>
+        </tr></table>
+        <br>
+
+        <form>
+				  <mat-label>Adresse</mat-label><br>
+				  <input name="street" placeholder="Avenue St Auguste" [(ngModel)]="street">
+        </form> 
+        <br><br> 
+
+				<table class="example-full-width" cellspacing="0"><tr>
+          <td><form class="example-full-width">
+            <mat-label>Ville</mat-label>
+            <input name="city" placeholder="Ex. San Francisco" [(ngModel)]="city">
+          </form></td>
+          <td><form class="example-full-width">
+            <mat-label>Code Postale</mat-label>
+            <input  name="zip" maxlength="5" placeholder="Ex. 94105" [(ngModel)]="zip">
+          </form></td>
+          <td><form class="example-full-width">
+            <mat-label>Pays</mat-label>
+            <input  name="country"  placeholder="Ex. California" [(ngModel)]="country">
+          </form></td>          
+        </tr></table>
+
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <button class="btn btn-primary" (click)="updateContact()">Valider</button>
+        </div>
+      </div> <br>
+		</div>
+  </div><br>
+    	
+</div>
