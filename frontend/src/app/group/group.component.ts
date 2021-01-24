@@ -22,7 +22,9 @@ export class GroupComponent implements OnInit {
   pageCourante:number=0;
   size:number=4;
   pages: number[] = [];
-  //pages:Array<number>;
+
+  selectedContact = new Contact();
+  selectedGroup = new Group();
   groups : Array<Group> = [];
   contacts : Array<Contact> = [];
 
@@ -39,11 +41,7 @@ export class GroupComponent implements OnInit {
   searchGroup : string ="";
   pageOfItems : Array<any>=[];
 
-  constructor(public groupService:GroupService,
-    public contactService:ContactService,
-    public http:HttpClient,
-    public router:Router) {
-
+  constructor(public groupService:GroupService, public contactService:ContactService, public http:HttpClient, public router:Router) {
       let group : Group = new Group();
       group.idGroup=1;
       group.groupName="M2Miage";
@@ -56,32 +54,32 @@ export class GroupComponent implements OnInit {
       this.groups?.push(grp);
 
 
-      // let contact : Contact = new Contact();
-      // contact.idContact=1;
-      // contact.firstname="toto";
-      // contact.lastname="toto";
-      // contact.email="tt@gmail.com";
+      let contact : Contact = new Contact();
+      contact.idContact=1;
+      contact.firstname="toto";
+      contact.lastname="toto";
+      contact.email="tt@gmail.com";
 
-      // let ctc :  Contact = new Contact();
-      // ctc.idContact=2;
-      // ctc.firstname="tititt";
-      // ctc.lastname="titi";
-      // ctc.email="titi@gmail.com";
+      let ctc :  Contact = new Contact();
+      ctc.idContact=2;
+      ctc.firstname="tititt";
+      ctc.lastname="titi";
+      ctc.email="titi@gmail.com";
 
-      // this.contacts?.push(contact);
-      // this.contacts?.push(ctc);
+      this.contacts?.push(contact);
+      this.contacts?.push(ctc);
 
-    let lesContacts : Array<Contact> =[];
-    this.contactService.getAllContacts().subscribe(data =>
-    {
-      data.forEach(c => {
-        let newAd = c.address;
-        newAd.resume = newAd.street+" "+newAd.city+" "+newAd.zip+" "+newAd.country;
-        c.address = newAd;
-        lesContacts.push(c);
-      })
-    })
-    this.contacts=lesContacts;
+    // let lesContacts : Array<Contact> =[];
+    // this.contactService.getAllContacts().subscribe(data =>
+    // {
+    //   data.forEach(c => {
+    //     let newAd = c.address;
+    //     newAd.resume = newAd.street+" "+newAd.city+" "+newAd.zip+" "+newAd.country;
+    //     c.address = newAd;
+    //     lesContacts.push(c);
+    //   })
+    // })
+    // this.contacts=lesContacts;
     }
 
     ngOnInit() {
@@ -95,7 +93,7 @@ export class GroupComponent implements OnInit {
       //   })
       // })
       // this.groups=lesGroups;
-      this.reloadData();
+      //this.reloadData();
       this.sortedData=this.groups;
     }
 
@@ -113,10 +111,10 @@ export class GroupComponent implements OnInit {
       this.hideView ? this.hideView=false : this.hideView=true;
     }
 
-    addContactToGroup(gId : number, cId : number){
-      console.log("grouiD : ", gId, "cId : ", cId);
-      this.groupService.addContactToGroup(gId,cId).subscribe(data => console.log(data));
-      this.router.navigate(['/contactsGroup',gId]);
+    addContactToGroup(){
+      console.log("grouiD : ", this.selectedGroup.idGroup, "cId : ", this.selectedContact.idContact);
+      this.groupService.addContactToGroup(this.groupId,this.contactId).subscribe(data => console.log(data));
+      this.router.navigate(['/contactsGroup',this.selectedGroup.idGroup]);
     }
 
     updateGroup(g : Group)
