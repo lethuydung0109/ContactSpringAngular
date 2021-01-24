@@ -45,8 +45,8 @@
                 <div class="row">
                     <form>
                         <label>Selectionnez un groupe </label>
-                        <select >
-                            <option *ngFor="let g of groups" name="{{g.groupName}}" [value]="g.idGroup" [(ngModel)]="groupId" ngDefaultControl>
+                        <select name="grp"  [(ngModel)]="selectedGroup.idGroup" matNativeControl>
+                            <option *ngFor="let g of groups" name="g.groupName" [value]="g.idGroup" ngDefaultControl>
                                 {{g.groupName}}
                             </option>
                         </select>
@@ -55,8 +55,8 @@
                 <div class="row">
                     <form>
                         <label>Selectionnez un contact </label>
-                        <select >
-                            <option *ngFor="let c of contacts"  name="{{c.firstname}}" [value]="c.idContact" [(ngModel)]="contactId" ngDefaultControl>
+                        <select name="ctc"  [(ngModel)]="selectedContact.idContact" matNativeControl >
+                            <option *ngFor="let c of contacts"  name="c.firstname" [value]="c.idContact" ngDefaultControl>
                                 {{c.firstname}}
                             </option>
                         </select>
@@ -66,7 +66,7 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <button class="btn btn-primary" (click)="addContactToGroup(groupId, contactId)"> Valider </button>
+                        <button class="btn btn-primary" (click)="addContactToGroup()"> Valider </button>
                     </div>
                 </div>
             </div>

@@ -45,7 +45,8 @@ import { MatInputModule } from '@angular/material/input';
     JwPaginationModule,
     MatSortModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [
     HttpClientModule,
