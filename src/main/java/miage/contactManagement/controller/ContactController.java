@@ -81,10 +81,10 @@ public class ContactController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Contact> updateEmployee(@PathVariable(value = "id") Long contactId,
+    public ResponseEntity<Contact> updateContact(@PathVariable(value = "id") Long contactId,
                                                     @RequestBody Contact contactDetails) throws ResourceNotFoundException {
         Contact contact = contactDAO.findById(contactId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + contactId));
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not found for this id :: " + contactId));
 
         contact.setEmail(contactDetails.getEmail());
         contact.setLastname(contactDetails.getLastname());
