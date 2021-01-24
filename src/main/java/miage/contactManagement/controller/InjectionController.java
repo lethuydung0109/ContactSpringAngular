@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/populate")
-public class PopulateController {
+@RequestMapping("/api/injection")
+public class InjectionController {
 //    @Autowired
 //    ApplicationContext context ;
 
@@ -22,14 +22,14 @@ public class PopulateController {
     @Autowired
     ContactDAO contactDAO;
 
-    @GetMapping("/check")
+    @GetMapping("/")
     public Contact populateData(){
-        String[] allBeanNames = context.getBeanDefinitionNames();
-        for(String beanName : allBeanNames) {
-            System.out.println(beanName + "******************");
-        }
+//        String[] allBeanNames = context.getBeanDefinitionNames();
+//        for(String beanName : allBeanNames) {
+//            System.out.println(beanName + "******************");
+//        }
         Contact contact = (Contact) context.getBean("contact");
-        contactDAO.save(contact);
-        return contact;
+
+        return contactDAO.save(contact);
     }
 }

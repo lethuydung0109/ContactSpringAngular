@@ -16,7 +16,11 @@ export class HomeComponent implements OnInit {
 
   public peupleBdd()
   {
-    this.contactService.peuplerBDD();
+    this.contactService.peuplerBDD().subscribe(
+      data => {
+        console.log("Peuple: "+ data);
+      }
+    )
   }
 
 }

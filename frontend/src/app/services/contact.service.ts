@@ -55,7 +55,8 @@ export class ContactService {
   public peuplerBDD() : Observable<any>
   {
     console.log("BDD remplie");
-    const routeQuery=this.url+"/peupleBdd";
+    const routeQuery=this.url+"/injection/";
+    console.log(routeQuery);
     return this.http.get<any>(routeQuery);
   }
 }
