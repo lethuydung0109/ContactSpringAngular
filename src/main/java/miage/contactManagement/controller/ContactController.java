@@ -2,16 +2,18 @@ package miage.contactManagement.controller;
 
 
 import miage.contactManagement.dao.ContactDAO;
+import miage.contactManagement.dao.ContactGroupDAO;
 import miage.contactManagement.exception.ResourceNotFoundException;
 import miage.contactManagement.model.Address;
 import miage.contactManagement.model.Contact;
+import miage.contactManagement.model.ContactGroup;
 import miage.contactManagement.model.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Set;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -19,6 +21,8 @@ import java.util.Set;
 public class ContactController {
     @Autowired
     private ContactDAO contactDAO;
+    @Autowired
+    private ContactGroupDAO groupDAO;
 
     @GetMapping("/")
     public List<Contact> getAllContacts(){
@@ -39,6 +43,42 @@ public class ContactController {
     public Contact createContact(@RequestBody Contact contact) {
         return contactDAO.save(contact);
     }
+
+    @GetMapping("/group/{idGroup}/{idContact}")
+    public Contact addContactToGroup(@PathVariable(value = "idContact") Long contactID,
+                                     @PathVariable(value = "idGroup") Long groupID) throws ResourceNotFoundException {
+
+        Contact contact = contactDAO.findById(contactID)
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not found for this id :: " + contactID));
+        ContactGroup group = groupDAO.findById(groupID)
+                .orElseThrow(() -> new ResourceNotFoundException("Group not found for this id :: " + groupID));
+
+
+        Set<ContactGroup> listGroups = contact.getListGroups();
+        listGroups.add(group);
+        contact.setListGroups(listGroups);
+
+        return contactDAO.save(contact);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public Map<String, Boolean> deleteContact(@PathVariable(value = "id") Long contactID)
+            throws ResourceNotFoundException {
+        Contact contact = contactDAO.findById(contactID)
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not found for this id :: " + contactID));
+
+        contact.getListGroups().removeAll(contact.getListGroups());
+        contactDAO.save(contact);
+        contactDAO.delete(contact);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+
+
+        return response;
+    }
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Contact> updateEmployee(@PathVariable(value = "id") Long contactId,

@@ -18,10 +18,10 @@ public class Contact {
     @JoinColumn(name="idAddress")
     private Address address;
 
-    @OneToMany(cascade=CascadeType.PERSIST)
+    @OneToMany(cascade=CascadeType.ALL)
     private Set<PhoneNumber> phones;
 
-    @ManyToMany(cascade=CascadeType.PERSIST)
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="CTC_GRP", joinColumns=@JoinColumn(name="idContact"), inverseJoinColumns=@JoinColumn(name="idGroup"))
     private Set<ContactGroup> listGroups;
 
@@ -81,4 +81,7 @@ public class Contact {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
+
 }

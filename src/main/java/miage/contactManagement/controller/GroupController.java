@@ -1,5 +1,6 @@
 package miage.contactManagement.controller;
 
+import miage.contactManagement.dao.ContactDAO;
 import miage.contactManagement.dao.ContactGroupDAO;
 import miage.contactManagement.exception.ResourceNotFoundException;
 import miage.contactManagement.model.Contact;
@@ -8,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -16,6 +18,9 @@ import java.util.List;
 public class GroupController {
     @Autowired
     private ContactGroupDAO groupDAO;
+
+    @Autowired
+    private ContactDAO contactDAO;
 
     @GetMapping("/")
     public List<ContactGroup> getAllGroups(){
@@ -36,6 +41,26 @@ public class GroupController {
         return ResponseEntity.ok().body(group);
     }
 
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public Map<String, Boolean> deleteGroup(@PathVariable(value = "id") Long groupID)
+            throws ResourceNotFoundException {
+        ContactGroup group = groupDAO.findById(groupID)
+                .orElseThrow(() -> new ResourceNotFoundException("Group not found for this id :: " + groupID));
+
+        Set<Contact> listContacts = group.getListContacts();
+        for(Contact c : listContacts){
+            c.getListGroups().remove(group);
+            contactDAO.save(c);
+        }
+
+//        groupDAO.save(group);
+        groupDAO.delete(group);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
+    }
 
 
 
