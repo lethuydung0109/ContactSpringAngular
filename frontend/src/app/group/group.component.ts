@@ -31,15 +31,17 @@ export class GroupComponent implements OnInit {
   updatedGroupName : string="";
   isAddContact:boolean=false;
   hideView : boolean=true;
+  hideCreateView : boolean=true;
+  groupname : string = "";
 
   sortedData : Group [] =[];
   searchText: string ="";
   searchGroup : string ="";
   pageOfItems : Array<any>=[];
 
-  constructor(public groupService:GroupService, 
+  constructor(public groupService:GroupService,
     public contactService:ContactService,
-    public http:HttpClient, 
+    public http:HttpClient,
     public router:Router) {
 
       let group : Group = new Group();
@@ -52,7 +54,7 @@ export class GroupComponent implements OnInit {
 
       this.groups?.push(group);
       this.groups?.push(grp);
-      
+
 
       // let contact : Contact = new Contact();
       // contact.idContact=1;
@@ -65,59 +67,63 @@ export class GroupComponent implements OnInit {
       // ctc.firstname="tititt";
       // ctc.lastname="titi";
       // ctc.email="titi@gmail.com";
-      
+
       // this.contacts?.push(contact);
       // this.contacts?.push(ctc);
 
     let lesContacts : Array<Contact> =[];
     this.contactService.getAllContacts().subscribe(data =>
     {
-      data.forEach(c => { 
+      data.forEach(c => {
         let newAd = c.address;
         newAd.resume = newAd.street+" "+newAd.city+" "+newAd.zip+" "+newAd.country;
         c.address = newAd;
-        lesContacts.push(c); 
+        lesContacts.push(c);
       })
     })
     this.contacts=lesContacts;
-
-      
-
     }
 
     ngOnInit() {
-      let lesGroups : Array<Group> =[];
-      this.groupService.getAllGroups().subscribe(data =>
-      {
-        data.forEach(g => { 
-          console.log(g)
-          console.log(g.groupName)
-          lesGroups.push(g); 
-        })
-      })
-      this.groups=lesGroups;
+      // let lesGroups : Array<Group> =[];
+      // this.groupService.getAllGroups().subscribe(data =>
+      // {
+      //   data.forEach(g => {
+      //     console.log(g)
+      //     console.log(g.groupName)
+      //     lesGroups.push(g);
+      //   })
+      // })
+      // this.groups=lesGroups;
+      this.reloadData();
       this.sortedData=this.groups;
     }
 
-    changeIsAddContact()
-    {
-
-      this.hideView ? this.hideView=false : this.hideView=true;
-      // if (this.isAddContact==false) return true;
-      // else return false;
+    createGroup(){
+      let newGroup = new Group();
+      newGroup.groupName=this.groupname;
+      this.groupService.createGroup(newGroup).subscribe(data => console.log("contact : ", newGroup));
+      this.reloadData();
     }
-    
+
+    showCreateView() {
+      this.hideCreateView ? this.hideCreateView=false : this.hideCreateView=true;
+    }
+    changeIsAddContact() {
+      this.hideView ? this.hideView=false : this.hideView=true;
+    }
+
     addContactToGroup(gId : number, cId : number){
       console.log("grouiD : ", gId, "cId : ", cId);
-      this.groupService.addContactToGroup(gId,cId).subscribe(data => console.log(data)); 
-      this.router.navigate(['/contactsGroup',gId]);     
+      this.groupService.addContactToGroup(gId,cId).subscribe(data => console.log(data));
+      this.router.navigate(['/contactsGroup',gId]);
     }
-    
+
     updateGroup(g : Group)
     {
       this.router.navigate(['/updateGroup',g.idGroup]);
     }
-      
+
     deleteGroup(g: Group)
     {
       if(g.idGroup != undefined)
@@ -125,10 +131,24 @@ export class GroupComponent implements OnInit {
         this.groups.splice(this.groups.indexOf(g),1);
     }
 
-    public showGroupContacts(g : Group)
-    {
+    public showGroupContacts(g : Group) {
         this.router.navigate(['/contactsGroup',g.idGroup]);
     }
+
+    reloadData()
+    {
+      let lesGroups : Array<Group> =[];
+      this.groupService.getAllGroups().subscribe(data =>
+      {
+        data.forEach(g => {
+          console.log(g)
+          console.log(g.groupName)
+          lesGroups.push(g);
+        })
+      })
+      this.groups=lesGroups;
+    }
+
     onChangePage(pageOfItems: Array<any>) {
       this.pageOfItems = pageOfItems;
     }

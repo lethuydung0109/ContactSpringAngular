@@ -1,26 +1,53 @@
 <br><br><br>
 <div class="content-spacing">
 
-    <h1> Liste des groupes </h1> <br>
-    
+    <h3> Liste des groupes </h3> <br>
+
     <div class="row">
         <div class="col-md-6">
-          <button class="btn btn-primary" (click)="changeIsAddContact()">Ajouter contact à un groupe</button>
+            <button class="btn btn-primary" (click)="showCreateView()">Créer Groupe</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-primary" (click)="changeIsAddContact()">Ajouter contact à un groupe</button>
         </div>
     </div> <br>
-    
+
+    <div class="row" *ngIf="hideCreateView==false">
+        <div class="card " style="text-align:left;">
+            <div class="card-header bg-info text-white">
+                Créer Groupe
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <form class="example-full-width">
+                        <mat-label>Nom </mat-label><br>
+                        <input name="groupname" [(ngModel)]="groupname">
+                    </form>
+                    <br><br>
+                </div><br>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary" (click)="createGroup()"> Valider </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
     <div class="row" *ngIf="hideView==false">
         <div class="card " style="text-align:left;">
             <div class="card-header bg-info text-white">
                 Ajout d'un contact à un groupe
             </div>
-            <div class="card-body">											
+            <div class="card-body">
                 <div class="row">
                     <form>
                         <label>Selectionnez un groupe </label>
                         <select >
                             <option *ngFor="let g of groups" name="{{g.groupName}}" [value]="g.idGroup" [(ngModel)]="groupId" ngDefaultControl>
-                            {{g.groupName}}
+                                {{g.groupName}}
                             </option>
                         </select>
                     </form>
@@ -30,56 +57,56 @@
                         <label>Selectionnez un contact </label>
                         <select >
                             <option *ngFor="let c of contacts"  name="{{c.firstname}}" [value]="c.idContact" [(ngModel)]="contactId" ngDefaultControl>
-                            {{c.firstname}}
+                                {{c.firstname}}
                             </option>
                         </select>
                     </form>
-                </div>                   
+                </div>
                 <br>
-               
+
                 <div class="row">
                     <div class="col-md-6">
-                      <button class="btn btn-primary" (click)="addContactToGroup(groupId, contactId)"> Valider </button>
+                        <button class="btn btn-primary" (click)="addContactToGroup(groupId, contactId)"> Valider </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <br><br><br>
-    
+
     <h3 style="text-align:left;"> Groupes </h3> <br>
 
-	<div class="row">
-		<!-- <div class="form-group">    
-			<input type="text" class="form-control" [(ngModel)]="searchGroup" placeholder="Search" />
-		</div> -->
-		<!-- <table class="table table-striped table-hover" matSort (matSortChange)="sortData($event)" *ngIf="(sortedData | filter : searchGroup).length > 0"> -->
-		<table class="table table-striped table-hover">
-			<thead>
-			<tr>
-				<th>ID</th>
-				<th>Name</th>
-				<th>Actions</th>                
-			</tr>
-			</thead>
-			<tbody>
-				<tr *ngFor="let g of groups">
-					<td>{{g.idGroup}}</td>
-					<td>{{g.groupName}}</td>
-					<td>
-						<button class="btn btn-primary" (click)="showGroupContacts(g)">Contacts</button>
-						<button class="btn btn-warning" (click)="updateGroup(g)">Modifier</button>
-						<button class="btn btn-danger" (click)="deleteGroup(g)">Suppr</button>
-					</td>                        
-				</tr>
-			</tbody>
-			<tfoot>
-				<br>
-				<div class="text-center">
-					<jw-pagination [items]="groups" [pageSize]="10" (changePage)="onChangePage($event)"> </jw-pagination>
-				</div>
-			</tfoot>
-		</table>
-	</div><br><br>
+    <div class="row">
+        <!-- <div class="form-group">
+            <input type="text" class="form-control" [(ngModel)]="searchGroup" placeholder="Search" />
+        </div> -->
+        <!-- <table class="table table-striped table-hover" matSort (matSortChange)="sortData($event)" *ngIf="(sortedData | filter : searchGroup).length > 0"> -->
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let g of groups">
+                <td>{{g.idGroup}}</td>
+                <td>{{g.groupName}}</td>
+                <td>
+                    <button class="btn btn-primary" (click)="showGroupContacts(g)">Contacts</button>
+                    <button class="btn btn-warning" (click)="updateGroup(g)">Modifier</button>
+                    <button class="btn btn-danger" (click)="deleteGroup(g)">Suppr</button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <br>
+            <div class="text-center">
+                <jw-pagination [items]="groups" [pageSize]="10" (changePage)="onChangePage($event)"> </jw-pagination>
+            </div>
+            </tfoot>
+        </table>
+    </div><br><br>
 </div>
     
