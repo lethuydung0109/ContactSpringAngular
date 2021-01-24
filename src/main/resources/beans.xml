@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+<!--    <bean id="cdao" class="miage.contactManagement.dao.ContactDAO"/>-->
+<!--    <bean id="contactservice" class="miage.contactManagement.services.ContactService"/>-->
+
+
+    <bean id="addresse1" class="miage.contactManagement.model.Address">
+        <property name="city" value="Paris"/>
+        <property name="country" value="France"/>
+        <property name="street" value="rue la Boetie"/>
+        <property name="zip" value="75008"/>
+
+    </bean>
+
+    <bean id="phoneNumber1" class="miage.contactManagement.model.PhoneNumber">
+        <property name="phoneKind" value="portable"/>
+        <property name="phoneNumber" value="3333"/>
+
+    </bean>
+    <bean id="phoneNumber2" class="miage.contactManagement.model.PhoneNumber">
+        <property name="phoneKind" value="fixe"/>
+        <property name="phoneNumber" value="9291921"/>
+    </bean>
+
+    <bean id="cg" class="miage.contactManagement.model.ContactGroup">
+        <property name="groupName" value="MIAGE"/>
+    </bean>
+
+    <bean id="contact" class="miage.contactManagement.model.Contact">
+        <property name="firstname" value="Dung"/>
+        <property name="lastname" value="LE"/>
+        <property name="email" value="dung.le@yahoo.fr"/>
+
+        <property name="address">
+            <ref bean="addresse1"/>
+        </property>
+
+        <property name="phones">
+            <set>
+                <ref bean="phoneNumber1"/>
+                  <ref bean="phoneNumber2"/>
+            </set>
+        </property>
+
+        <property name="listGroups">
+            <set>
+                <ref bean="cg"/>
+            </set>
+        </property>
+    </bean>
+</beans>
