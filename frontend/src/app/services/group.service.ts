@@ -15,7 +15,7 @@ export class GroupService {
 
   public createGroup(group : Group) : Observable<Group>
   {
-    const routeQuery=this.url+"/createSession";
+    const routeQuery=this.url+"/createGroup";
     console.log("group", group)
 
     return this.http.post<Group>(routeQuery,group);

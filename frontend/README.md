@@ -1,3 +1,8 @@
+# Project Config
+After clone project if you have errors in frontend 
+npm update
+npm install @angular-devkit/build-angular @angular/compiler-cli typescript
+
 # FrontendCnts
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
