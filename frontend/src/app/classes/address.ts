@@ -15,4 +15,10 @@ export class Address {
         this.resume=this.street+" "+this.city+" "+this.zip+" "+this.country;
     }
 
+    getResume(){
+        // let s = this.street+" "+this.city+" "+this.zip+" "+this.country
+        // return s;
+        this.resume=this.street+" "+this.city+" "+this.zip+" "+this.country;
+    }
+
 }

@@ -21,13 +21,15 @@
     </tr>
     </thead>
     <tbody>
-      <tr class="contact-row" *ngFor="let c of contacts">
-        <th scope="row">{{c.id}}</th>
+      <tr class="contact-row" *ngFor="let c of contacts; index as i">
+        <th scope="row">{{c.idContact}}</th>
         <td>{{c.firstname}}</td>
         <td>{{c.lastname}}</td>
         <td>{{c.email}}</td>
-        <td>{{c.phone.phonenumber}}</td>
-        <td>{{c.cellPhone.phonenumber}}</td>
+        <td>{{c.phones[0].phoneNumber}}</td>
+        <td>{{c.phones[1].phoneNumber}}</td>
+        <!-- <td>Phone1</td> -->
+        <!-- <td>Phone2</td> -->
         <td>{{c.address.resume}}</td>      
         <td>         
           <button class="btn btn-primary" (click)="updateContact(c)">Modifier</button>    

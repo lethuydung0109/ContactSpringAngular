@@ -31,19 +31,19 @@ export class GroupService {
 
   public getGroupById(groupId : Number) : Observable<Group>
   {
-    const routeQuery=this.url+"/groupById/"+groupId;
+    const routeQuery=this.url+"/groups/"+groupId;
     return this.http.get<Group>(routeQuery);
   }
 
   public getAllGroups() : Observable<Array<Group>>
   {
-    const routeQuery=this.url+"/allGroups";
+    const routeQuery=this.url+"/groups/";
     return this.http.get<Array<Group>>(routeQuery);
   }
 
   public getContactsByGroupId(groupId : Number) : Observable<Array<Contact>>
   {
-    const routeQuery=this.url+"/getContactsByGroupId/"+groupId;
+    const routeQuery=this.url+"/contacts/group/"+groupId;
     return this.http.get<Array<Contact>>(routeQuery);
   }
 

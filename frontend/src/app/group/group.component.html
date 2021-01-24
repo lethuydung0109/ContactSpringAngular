@@ -19,8 +19,8 @@
                     <form>
                         <label>Selectionnez un groupe </label>
                         <select >
-                            <option *ngFor="let g of groups" name="{{g.groupname}}" [value]="g.id" [(ngModel)]="groupId" ngDefaultControl>
-                            {{g.groupname}}
+                            <option *ngFor="let g of groups" name="{{g.groupName}}" [value]="g.idGroup" [(ngModel)]="groupId" ngDefaultControl>
+                            {{g.groupName}}
                             </option>
                         </select>
                     </form>
@@ -29,7 +29,7 @@
                     <form>
                         <label>Selectionnez un contact </label>
                         <select >
-                            <option *ngFor="let c of contacts"  name="{{c.firstname}}" [value]="c.id" [(ngModel)]="contactId" ngDefaultControl>
+                            <option *ngFor="let c of contacts"  name="{{c.firstname}}" [value]="c.idContact" [(ngModel)]="contactId" ngDefaultControl>
                             {{c.firstname}}
                             </option>
                         </select>
@@ -64,8 +64,8 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let g of groups">
-					<td>{{g.id}}</td>
-					<td>{{g.groupname}}</td>
+					<td>{{g.idGroup}}</td>
+					<td>{{g.groupName}}</td>
 					<td>
 						<button class="btn btn-primary" (click)="showGroupContacts(g)">Contacts</button>
 						<button class="btn btn-warning" (click)="updateGroup(g)">Modifier</button>

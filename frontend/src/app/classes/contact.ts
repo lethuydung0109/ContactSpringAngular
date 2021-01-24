@@ -1,14 +1,14 @@
 import { Address } from './address';
-import { PhoneNumber } from './phone-number';
+import { phoneNumber } from './phone-number';
 
 export class Contact {
-    id?: number;
+    idContact?: number;
     firstname : string;
     lastname: string;
     email: string;
     address : Address;
-    phone : PhoneNumber;
-    cellPhone : PhoneNumber;
+    phones : Array<phoneNumber>;
+    
 
     constructor()
     {
@@ -16,8 +16,11 @@ export class Contact {
         this.lastname="";
         this.email="";
         this.address=new Address();
-        this.phone = new PhoneNumber();
-        this.cellPhone = new PhoneNumber();
+        this.phones = new Array<phoneNumber>();
+    }
+
+    resumeAdresse(){
+        this.address.getResume();
     }
 
 

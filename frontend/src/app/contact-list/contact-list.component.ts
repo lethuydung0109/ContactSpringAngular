@@ -2,6 +2,7 @@ import { Component, OnInit,EventEmitter, Input, Output } from '@angular/core';
 import { Contact } from '../classes/contact';
 import { ContactService } from '../services/contact.service';
 import { Router } from '@angular/router';
+import { phoneNumber } from '../classes/phone-number';
 
 @Component({
   selector: 'app-contact-list',
@@ -14,35 +15,57 @@ export class ContactListComponent implements OnInit {
   pageOfItems : Array<any>=[];
 
   constructor(public contactService : ContactService,public router:Router) {
-    let  c: Contact = new Contact();
-    c.id=1;
-    c.firstname="name";
-    c.lastname="toto";
-    c.email="t.t@gmail.com";
-    c.address.resume="11 avenue auguste rodin 94350 Villiers-sur-marne";
-    c.phone.phonenumber="0203040506";
-    c.cellPhone.phonenumber="010203040506";
-   
+    // let  c: Contact = new Contact();
+    // c.idContact=1;
+    // c.firstname="name";
+    // c.lastname="toto";
+    // c.email="t.t@gmail.com";
+    // c.address.resume="11 avenue auguste rodin 94350 Villiers-sur-marne";
+    
+    // let cellphone: phoneNumber = new phoneNumber(); 
+    // cellphone.phoneKind = "portable";
+    // cellphone.phoneNumber = "1111";
 
-    this.contacts?.push(c);
+    // let phone: phoneNumber = new phoneNumber(); 
+    // phone.phoneKind = "fixe";
+    // phone.phoneNumber = "2222";
+
+    // let phones = new Array<phoneNumber>();
+    // phones.push(cellphone);
+    // phones.push(phone);
+
+    // c.phones = phones;
+
+    // this.contacts?.push(c);
   }
 
   ngOnInit() {
-    // let lesContacts : Array<Contact> =[];
-    // this.contactService.getAllContacts().subscribe(data =>
-    // {
-    //   data.forEach(c => { lesContacts.push(c); })
-    // })
-    // this.contacts=lesContacts;
+    let lesContacts : Array<Contact> =[];
+    this.contactService.getAllContacts().subscribe(data =>
+    {
+      data.forEach(c => { 
+        let newAd = c.address;
+        newAd.resume = newAd.street+" "+newAd.city+" "+newAd.zip+" "+newAd.country;
+        c.address = newAd;
+        lesContacts.push(c); 
+      })
+    })
+    this.contacts=lesContacts;
   }
 
-  updateContact(contact: Contact) {
-    this.router.navigate(['/updateContact',contact.id]);
+
+  updateAddressResume(contact: Contact){
+    contact.address.getResume();
+  }
+
+  updateContact(contact : Contact) {
+    console.log(contact.idContact);
+    this.router.navigate(['/updateContact/',contact.idContact]);
   }
 
   deleteContact(contact: Contact) {
-    if( contact.id != undefined)
-      this.contactService.deleteContact(contact.id).subscribe();
+    if( contact.idContact != undefined)
+      this.contactService.deleteContact(contact.idContact).subscribe();
       this.contacts.splice(this.contacts.indexOf(contact),1);
   }
 

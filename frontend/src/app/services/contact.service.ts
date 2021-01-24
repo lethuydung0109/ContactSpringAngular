@@ -14,7 +14,7 @@ export class ContactService {
   
   public createContact(contact : Contact) : Observable<Contact>
   {
-    const routeQuery=this.url+"/contacts";
+    const routeQuery=this.url+"/contacts/";
     console.log(routeQuery)
     console.log("contact", contact)
 
@@ -23,7 +23,7 @@ export class ContactService {
 
   public updateContact(contact : Contact) : Observable<any>
   {
-    const routeQuery=this.url+"/updateContact";
+    const routeQuery=this.url+"/contacts/"+contact.idContact;
     console.log("contact", contact)
 
     return this.http.put<Contact>(routeQuery,contact);
@@ -31,13 +31,13 @@ export class ContactService {
 
   public getContactById(idContact : Number) : Observable<Contact>
   {
-    const routeQuery=this.url+"/contactById/"+idContact;
+    const routeQuery=this.url+"/contacts/"+idContact;
     return this.http.get<Contact>(routeQuery);
   }
 
   getAllContacts() : Observable<Array<Contact>>
   {
-    const routeQuery=this.url+"/contacts";
+    const routeQuery=this.url+"/contacts/";
     return this.http.get<Array<Contact>>(routeQuery);
   }
 

@@ -12,7 +12,7 @@ export class UpgradeGroupComponent implements OnInit {
 
   groupId : number;
   updatedGroup : Group;
-  groupname : string ="";
+  groupName : string ="";
 
   constructor(private groupService : GroupService, private route: ActivatedRoute, private router: Router) { 
     this.groupId=this.route.snapshot.params.id;
@@ -21,17 +21,17 @@ export class UpgradeGroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.groupname="Mon groupe";
+    this.groupName="Mon groupe";
     // this.groupService.getGroupById(this.groupId).subscribe(data =>
     // {     
-    //     this.groupname?data.groupname : "undefined";
+    //     this.groupName?data.groupname : "undefined";
     // })
   }
 
   updateGroup()
   {
-    this.updatedGroup.id=this.groupId;        
-    this.updatedGroup.groupname=this.groupname;
+    this.updatedGroup.idGroup=this.groupId;        
+    this.updatedGroup.groupName=this.groupName;
 
     this.groupService.updateGroup(this.updatedGroup);
     console.log("updatedGroup ", this.updatedGroup);

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Contact } from '../classes/contact';
 import { ContactService } from '../services/contact.service';
 import { Address } from '../classes/address';
-import { PhoneNumber } from '../classes/phone-number';
+import { phoneNumber } from '../classes/phone-number';
 import { Router } from '@angular/router';
 
 
@@ -42,13 +42,17 @@ export class CreateContactComponent implements OnInit {
     address.resume=address.street+" "+address.city+" "+address.zip+" "+address.country;
 
     //phones
-    let phone = new PhoneNumber();
-    phone.phonekind="portable";
-    phone.phonenumber=this.phone;
+    let fixePhone = new phoneNumber();
+    fixePhone.phoneKind="fixe";
+    fixePhone.phoneNumber=this.phone;
 
-    let cellPhone = new PhoneNumber();
-    phone.phonekind="fixe";
-    phone.phonenumber=this.cellphone;
+    let cellPhone = new phoneNumber();
+    cellPhone.phoneKind="portable";
+    cellPhone.phoneNumber=this.cellphone;
+
+    let phones = new Array<phoneNumber>();
+    phones.push(fixePhone);
+    phones.push(cellPhone);
 
     //Contact
     let contact = new Contact();
@@ -56,8 +60,9 @@ export class CreateContactComponent implements OnInit {
     contact.lastname=this.lastname;
     contact.email=this.email;
     contact.address=address;
-    contact.phone=phone;
-    contact.cellPhone=cellPhone;
+    contact.phones = phones;
+    console.log(phones);
+    console.log(contact.phones);
     
     this.contactService.createContact(contact).subscribe(
       data => {

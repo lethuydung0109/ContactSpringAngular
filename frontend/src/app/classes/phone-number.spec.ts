@@ -1,7 +1,7 @@
-import { PhoneNumber } from './phone-number';
+import { phoneNumber } from './phone-number';
 
-describe('PhoneNumber', () => {
+describe('phoneNumber', () => {
   it('should create an instance', () => {
-    expect(new PhoneNumber()).toBeTruthy();
+    expect(new phoneNumber()).toBeTruthy();
   });
 });

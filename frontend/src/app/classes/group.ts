@@ -1,9 +1,9 @@
 export class Group {
-    id?:number;
-    groupname?:string;
+    idGroup?:number;
+    groupName?:string;
 
     constructor()
     {
-        this.groupname="";
+        this.groupName="";
     }
 }

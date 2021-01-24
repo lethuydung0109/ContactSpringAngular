@@ -1,12 +1,13 @@
-export class PhoneNumber {
+export class phoneNumber {
     id?:number;
-    phonekind?: string;
-    phonenumber?: string;
+    phoneKind?: string;
+    phoneNumber?: string;
 
     constructor()
     {
-        this.phonenumber="";
-        this.phonekind="";
+        this.phoneNumber="";
+        this.phoneKind="";
     }
+
 }
 
