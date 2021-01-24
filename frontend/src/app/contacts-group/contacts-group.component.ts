@@ -28,16 +28,16 @@ export class ContactsGroupComponent implements OnInit {
         console.log(data);
       }
     )
-    this.groupService.getContactsByGroupId(1).subscribe(data => {
-      this.contacts=data;
-    });
+    // this.groupService.getContactsByGroupId(1).subscribe(data => {
+    //   this.contacts=data;
+    // });
 
-    // let mesContacts : Array<Contact> =[];
-    // this.groupService.getContactsByGroupId().subscribe(data =>
-    // {
-    //   data.forEach(c => { mesContacts.push(c); })
-    // })
-    // this.contacts=mesContacts;
+    let mesContacts : Array<Contact> =[];
+    this.groupService.getContactsByGroupId(this.groupId).subscribe(data =>
+    {
+      data.forEach(c => { mesContacts.push(c); })
+    })
+    this.contacts=mesContacts;
   }
 
 }

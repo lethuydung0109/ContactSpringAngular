@@ -42,58 +42,58 @@ export class GroupComponent implements OnInit {
   pageOfItems : Array<any>=[];
 
   constructor(public groupService:GroupService, public contactService:ContactService, public http:HttpClient, public router:Router) {
-      let group : Group = new Group();
-      group.idGroup=1;
-      group.groupName="M2Miage";
+      // let group : Group = new Group();
+      // group.idGroup=1;
+      // group.groupName="M2Miage";
 
-      let grp : Group = new Group();
-      grp.idGroup=2;
-      grp.groupName="Amis";
+      // let grp : Group = new Group();
+      // grp.idGroup=2;
+      // grp.groupName="Amis";
 
-      this.groups?.push(group);
-      this.groups?.push(grp);
+      // this.groups?.push(group);
+      // this.groups?.push(grp);
 
 
-      let contact : Contact = new Contact();
-      contact.idContact=1;
-      contact.firstname="toto";
-      contact.lastname="toto";
-      contact.email="tt@gmail.com";
+      // let contact : Contact = new Contact();
+      // contact.idContact=1;
+      // contact.firstname="toto";
+      // contact.lastname="toto";
+      // contact.email="tt@gmail.com";
 
-      let ctc :  Contact = new Contact();
-      ctc.idContact=2;
-      ctc.firstname="tititt";
-      ctc.lastname="titi";
-      ctc.email="titi@gmail.com";
+      // let ctc :  Contact = new Contact();
+      // ctc.idContact=2;
+      // ctc.firstname="tititt";
+      // ctc.lastname="titi";
+      // ctc.email="titi@gmail.com";
 
-      this.contacts?.push(contact);
-      this.contacts?.push(ctc);
+      // this.contacts?.push(contact);
+      // this.contacts?.push(ctc);
 
-    // let lesContacts : Array<Contact> =[];
-    // this.contactService.getAllContacts().subscribe(data =>
-    // {
-    //   data.forEach(c => {
-    //     let newAd = c.address;
-    //     newAd.resume = newAd.street+" "+newAd.city+" "+newAd.zip+" "+newAd.country;
-    //     c.address = newAd;
-    //     lesContacts.push(c);
-    //   })
-    // })
-    // this.contacts=lesContacts;
+    let lesContacts : Array<Contact> =[];
+    this.contactService.getAllContacts().subscribe(data =>
+    {
+      data.forEach(c => {
+        let newAd = c.address;
+        newAd.resume = newAd.street+" "+newAd.city+" "+newAd.zip+" "+newAd.country;
+        c.address = newAd;
+        lesContacts.push(c);
+      })
+    })
+    this.contacts=lesContacts;
     }
 
     ngOnInit() {
-      // let lesGroups : Array<Group> =[];
-      // this.groupService.getAllGroups().subscribe(data =>
-      // {
-      //   data.forEach(g => {
-      //     console.log(g)
-      //     console.log(g.groupName)
-      //     lesGroups.push(g);
-      //   })
-      // })
-      // this.groups=lesGroups;
-      //this.reloadData();
+      let lesGroups : Array<Group> =[];
+      this.groupService.getAllGroups().subscribe(data =>
+      {
+        data.forEach(g => {
+          console.log(g)
+          console.log(g.groupName)
+          lesGroups.push(g);
+        })
+      })
+      this.groups=lesGroups;
+      this.reloadData();
       this.sortedData=this.groups;
     }
 
@@ -112,8 +112,10 @@ export class GroupComponent implements OnInit {
     }
 
     addContactToGroup(){
-      console.log("grouiD : ", this.selectedGroup.idGroup, "cId : ", this.selectedContact.idContact);
-      this.groupService.addContactToGroup(this.groupId,this.contactId).subscribe(data => console.log(data));
+      console.log("groupiD : ", this.selectedGroup.idGroup, "cId : ", this.selectedContact.idContact);
+      this.groupService.addContactToGroup(this.selectedGroup.idGroup!,this.selectedContact.idContact!).subscribe(
+        data => console.log(data)
+        );
       this.router.navigate(['/contactsGroup',this.selectedGroup.idGroup]);
     }
 

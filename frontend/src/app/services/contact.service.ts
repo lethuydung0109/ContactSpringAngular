@@ -43,7 +43,7 @@ export class ContactService {
 
   public deleteContact (idContact :number) : Observable<any>
   {
-    const routeQuery=this.url+"/deleteContact/"+idContact;
+    const routeQuery=this.url+"/contacts/"+idContact;
     return this.http.delete(routeQuery);
   }
 

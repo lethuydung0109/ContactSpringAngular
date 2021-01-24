@@ -15,7 +15,7 @@ export class GroupService {
 
   public createGroup(group : Group) : Observable<Group>
   {
-    const routeQuery=this.url+"/createGroup";
+    const routeQuery=this.url+"/groups/";
     console.log("group", group)
 
     return this.http.post<Group>(routeQuery,group);
@@ -23,7 +23,7 @@ export class GroupService {
 
   public updateGroup(group : Group) : Observable<any>
   {
-    const routeQuery=this.url+"/updateGroup";
+    const routeQuery=this.url+"/groups/"+group.idGroup;
     console.log("group", group)
 
     return this.http.put<Group>(routeQuery,group);
@@ -49,13 +49,13 @@ export class GroupService {
 
   public addContactToGroup(groupId:number, contactId : number)
   {
-    const routeQuery=this.url+"/addContactToGroup/"+groupId+"/"+contactId;
+    const routeQuery=this.url+"/contacts/group/"+groupId+"/"+contactId;
     return this.http.get<Array<Contact>>(routeQuery);
   }
 
   public deleteGroup (groupId :number) : Observable<any>
   {
-    const routeQuery=this.url+"/deleteGroup/"+groupId;
+    const routeQuery=this.url+"/groups/"+groupId;
     return this.http.delete(routeQuery);
   }
 

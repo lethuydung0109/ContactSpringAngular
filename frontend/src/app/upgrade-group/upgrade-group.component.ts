@@ -32,9 +32,13 @@ export class UpgradeGroupComponent implements OnInit {
   {
     this.updatedGroup.idGroup=this.groupId;        
     this.updatedGroup.groupName=this.groupName;
-
-    this.groupService.updateGroup(this.updatedGroup);
     console.log("updatedGroup ", this.updatedGroup);
+    this.groupService.updateGroup(this.updatedGroup).subscribe(
+      data => {
+        console.log(data);
+      }
+    );
+    
     this.router.navigate(['/groups']);
   }
 
