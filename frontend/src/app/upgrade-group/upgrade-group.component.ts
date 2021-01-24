@@ -10,27 +10,28 @@ import { GroupService } from '../services/group.service';
 })
 export class UpgradeGroupComponent implements OnInit {
 
-  groupId : number;
-  updatedGroup : Group;
+  groupId : Number;
+  updatedGroup : Group = new Group();
   groupName : string ="";
 
   constructor(private groupService : GroupService, private route: ActivatedRoute, private router: Router) { 
     this.groupId=this.route.snapshot.params.id;
-    console.log("received gId ", this.groupId);
-    this.updatedGroup = new Group();
+    this.updatedGroup.idGroup=this.route.snapshot.params.id;
   }
 
   ngOnInit(): void {
-    this.groupName="Mon groupe";
-    // this.groupService.getGroupById(this.groupId).subscribe(data =>
-    // {     
-    //     this.groupName?data.groupname : "undefined";
-    // })
+    let name : string ="";
+    this.groupService.getGroupById(this.groupId).subscribe(data =>
+    {
+        console.log("received groupe ",data);
+          if(data.groupName !=undefined)
+            this.groupName=data.groupName;
+    })
   }
 
   updateGroup()
   {
-    this.updatedGroup.idGroup=this.groupId;        
+    console.log("groupname ", this.groupName) 
     this.updatedGroup.groupName=this.groupName;
     console.log("updatedGroup ", this.updatedGroup);
     this.groupService.updateGroup(this.updatedGroup).subscribe(
