@@ -11,12 +11,14 @@ public class PhoneNumber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idPhone;
+
     private String phoneKind;
+
     private String phoneNumber;
 
-    @ManyToOne
-	@JoinColumn(name="idContact")
-	private Contact contact;
+//    @ManyToOne
+//	@JoinColumn(name="idContact")
+//	private Contact contact;
 
     public long getIdPhone() {
         return idPhone;
@@ -41,12 +43,12 @@ public class PhoneNumber {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public Contact getContact() {
-        return contact;
-    }
-
-    public void setContact(Contact contact) {
-        this.contact = contact;
-    }
+//
+//    public Contact getContact() {
+//        return contact;
+//    }
+//
+//    public void setContact(Contact contact) {
+//        this.contact = contact;
+//    }
 }

@@ -12,6 +12,7 @@ public class Contact {
 
     private String firstname;
     private String lastname;
+    private String email;
 
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="idAddress")
@@ -71,5 +72,13 @@ public class Contact {
 
     public void setListGroups(Set<ContactGroup> listGroups) {
         this.listGroups = listGroups;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
